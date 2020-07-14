@@ -220,7 +220,7 @@ echo && echo -e " fclone shell bot Final version ${Red_font_prefix}[v${sh_ver}]$
  ${Green_font_prefix} 14.${Font_color_suffix} View script copy parameter ini
  ${Green_font_prefix} 15.${Font_color_suffix} Modify the script transfer parameter ini
  ———————————————————————
- ${Green_font_prefix} 16.${Font_color_suffix} EXIT Script" && echo 
+ ${Green_font_prefix} 16.${Font_color_suffix} EXIT Script && echo 
 read -e -p " Please enter the number [0-16]:" num
 
 case "$num" in
