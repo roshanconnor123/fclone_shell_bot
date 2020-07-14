@@ -4,7 +4,7 @@
 # File Name: fcleanup.sh
 # Author: cgking
 # Created Time : 2020.7.8
-# Description:定向比对
+# Description:Directional comparison 
 # System Required: Debian/Ubuntu
 # Version: final
 #=============================================================
@@ -25,4 +25,4 @@ link2=${link2#*id=};link2=${link2#*folders/};link2=${link2#*d/};link2=${link2%?u
 fi
 echo -e "▣▣▣▣▣▣正在执行比对▣▣▣▣▣▣"
 fclone check "$fclone_name":{$link1} "$fclone_name":{$link2} --fast-list --size-only --checkers=64
-echo "|▉▉▉▉▉▉▉▉▉▉▉▉|100%  Completed"
+echo "|▉▉▉▉▉▉▉▉▉▉▉▉|100%  Comparison finished"
