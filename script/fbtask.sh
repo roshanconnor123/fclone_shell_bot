@@ -1,43 +1,43 @@
 #!/bin/bash
 #=============================================================
-# https://github.com/cgkings/fclone_shell_bot
+# https://github.com/roshanconnor123/fclone_shell_bot
 # File Name: fbtask.sh
 # Author: cgking
 # Created Time : 2020.7.8
-# Description:全盘备份-task
+# Description:Full Drive Backup-task
 # System Required: Debian/Ubuntu
 # Version: final
 #=============================================================
 
 source ~/fclone_shell_bot/myfc_config.ini
 clear
-echo -e " 选择你要备份的盘
-[1]. ADV盘
-[2]. MDV盘
-[3]. BOOK盘
-[4]. 自定义 
-[5]. 退出"
-read -n1 -p "请输入数字 [1-5]:" num
+echo -e " Choose the disk you want to backup
+[1]. ADV Drive
+[2]. MDV Drive
+[3]. BOOK Drive
+[4]. Customize
+[5]. Quit"
+read -n1 -p "Please enter the number [1-5]:" num
 case "$num" in
 1)
     echo -e " \n "
-    echo -e "★★★ 1#ADV盘 ★★★"
+    echo -e "★★★ 1#ADV Drive ★★★"
     myid="$jav_id"
     ;;
 2)
     echo -e " \n "
-    echo -e "★★★ 2#MDV盘 ★★★"
+    echo -e "★★★ 2#MDV Drive ★★★"
     myid="$mdv_id"
     ;;
 3)
     echo -e " \n "
-    echo -e "★★★ 3#BOOK盘 ★★★"
+    echo -e "★★★ 3#BOOK Drive ★★★"
     myid="$book_id"
     ;;
 4)
-    read -p "请输入需要备份的盘ID==>" myid
+    read -p "Please enter the drive ID to be backed up==>" myid
     if [ -z "$myid" ] ; then
-    echo "不允许输入为空" && exit
+    echo "No input is allowed" && exit
     else
     myid=${myid#*id=};myid=${myid#*folders/};myid=${myid#*d/};myid=${myid%?usp*}
     fi
@@ -47,19 +47,19 @@ case "$num" in
     ;;
 *)
     echo -e " \n "
-    echo -e "请输入正确的数字"
+    echo -e "Please enter the correct number"
     ;;
 esac
-read -p "请输入指定备份盘ID==>" link
+read -p "Please enter the specified backup driveID==>" link
 if [ -z "$link" ] ; then
-    echo "不允许输入为空" && exit
+    echo "No input is allowed" && exit
 else
 link=${link#*id=};link=${link#*folders/};link=${link#*d/};link=${link%?usp*}
 fi
 sed -i "s/${fb_link1}/${myid}/g" /root/fclone_shell_bot/myfc_config.ini
 sed -i "s/${fb_link2}/${link}/g" /root/fclone_shell_bot/myfc_config.ini
-echo -e "/n该模式暂不支持队列任务，仅支持后台任务"
+echo -e "/nThis mode does not support queue tasks, only background tasks"
 tmux new -s fbtask -d
 tmux send -t "fbtask" '~/gclone_shell_bot/script/fbcopy.sh' Enter
-echo -e "/n后台任务已开始执行"
+echo -e "/nBackground task has started"
 exit
