@@ -21,7 +21,7 @@ rootname=$(fclone lsd "$fclone_name":{$link} --dump bodies -vv 2>&1 | awk 'BEGIN
 size_info=`fclone size "$fclone_name":{$link} --checkers=200`
 file_num=$(echo "$size_info" | awk 'BEGIN{FS=" "}/^Total objects/{print $3}')
 file_size=$(echo "$size_info" | awk 'BEGIN{FS=" "}/^Total size/{print $3,$4}')
-echo -e "▣▣▣▣▣▣任务信息▣▣▣▣▣▣\n"
+echo -e "▣▣▣▣▣▣Task Info▣▣▣▣▣▣\n"
 echo -e "┋Folder Name┋:"$rootname"\n"
 echo -e "┋Number of Files┋:"$file_num"\n"
 echo -e "┋Size of Files┋:"$file_size"\n"
