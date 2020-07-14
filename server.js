@@ -98,7 +98,7 @@ bot.message(function (msg, reply, next) {
   if (msg.context.editor)
     return msg.context.editor.handleReply(msg);
   if (!msg.context.command)
-    return reply.html("没有命令在运行.");
+    return reply.html("No command running.");
   msg.context.command.handleReply(msg);
 });
 
@@ -122,7 +122,7 @@ bot.command("r", function (msg, reply, next) {
 bot.command("cancel", "kill", function (msg, reply, next) {
   var arg = msg.args(1)[0];
   if (!msg.context.command)
-    return reply.html("没有命令在运行.");
+    return reply.html("No command running.");
 
   var group = msg.command === "cancel";
   var signal = group ? "SIGINT" : "SIGTERM";
@@ -139,14 +139,14 @@ bot.command("cancel", "kill", function (msg, reply, next) {
 bot.command("enter", "type", function (msg, reply, next) {
   var args = msg.args();
   if (!msg.context.command)
-    return reply.html("没有命令在运行.");
+    return reply.html("No command running.");
   if (msg.command === "type" && !args) args = " ";
   msg.context.command.sendInput(args, msg.command === "type");
 });
 bot.command("control", function (msg, reply, next) {
   var arg = msg.args(1)[0];
   if (!msg.context.command)
-    return reply.html("没有命令在运行.");
+    return reply.html("No command running.");
   if (!arg || !/^[a-zA-Z]$/i.test(arg))
     return reply.html("Use /control &lt;letter&gt; to send Control+letter to the process.");
   var code = arg.toUpperCase().charCodeAt(0) - 0x40;
@@ -155,7 +155,7 @@ bot.command("control", function (msg, reply, next) {
 bot.command("meta", function (msg, reply, next) {
   var arg = msg.args(1)[0];
   if (!msg.context.command)
-    return reply.html("没有命令在运行.");
+    return reply.html("No command running.");
   if (!arg)
     return msg.context.command.toggleMeta();
   msg.context.command.toggleMeta(true);
@@ -163,14 +163,14 @@ bot.command("meta", function (msg, reply, next) {
 });
 bot.command("end", function (msg, reply, next) {
   if (!msg.context.command)
-    return reply.html("没有命令在运行.");
+    return reply.html("No command running.");
   msg.context.command.sendEof();
 });
 
 // Redraw
 bot.command("redraw", function (msg, reply, next) {
   if (!msg.context.command)
-    return reply.html("没有命令在运行.");
+    return reply.html("No command running.");
   msg.context.command.redraw();
 });
 
@@ -178,11 +178,11 @@ bot.command("redraw", function (msg, reply, next) {
 bot.command("run", function (msg, reply, next) {
   var args = msg.args();
   if (!args)
-    return reply.html("使用 /run &lt;linux命令&gt; 运行VPS的linux命令.");
+    return reply.html("Use /run <linux command> to run the Linux command of VPS.");
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Coomands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
@@ -300,7 +300,7 @@ bot.command("status", function (msg, reply, next) {
       content += "\nGranted chats:\n";
       content += grantedIds.map(function (id) { return id.toString(); }).join("\n");
     } else {
-      content += "\n没有其他聊天被授权，使用/ grant或/ token允许其他聊天使用该bot.";
+      content += "\nNo other chat is authorized, use /grant or /token to allow other chats to use the bot.";
     }
   }
 
@@ -466,51 +466,51 @@ bot.command("token", function (msg, reply, next) {
 // Welcome message, help
 bot.command("start", function (msg, reply, next) {
   if (msg.args() && msg.context.id === owner && Object.hasOwnProperty.call(tokens, msg.args())) {
-    reply.html("你已经认证过了; 此token已被吊销.");
+    reply.html("You have already been authenticated; this token has been revoked.");
   } else {
-    reply.html("欢迎使用fclone shell bot! Use /run to execute commands, and reply to my messages to send input. /help for more info.");
+    reply.html("Welcome to fclone shell bot! Use /run to execute commands, and reply to my messages to send input. /help for more info.");
   }
 });
 
 bot.command("help", function (msg, reply, next) {
   reply.html(
-    "<em>fclone转存常用命令</em>\n" +
+    "<em>fclone Save common commands</em>\n" +
     "\n" +
-    "‣ /fq    极速转存模式.\n" +
-    "‣ /fp    点点转存模式.\n" +
-    "‣ /fb    全盘备份模式.\n" +
-    "‣ /fs    定向size查询.\n" +
-    "‣ /fd    定向查重功能.\n" +
-    "‣ /fc    定向比对功能.\n" +
-    "‣ /fcl   清空回收站.\n" +
-    "‣ /cancel终止当前进程(Ctrl+C)；\n" + 
+    "‣ /fq    Quick Copy Mode.\n" +
+    "‣ /fp    Copy Mode.\n" +
+    "‣ /fb    Full disk backup mode.\n" +
+    "‣ /fs    Directional size query.\n" +
+    "‣ /fd    Directional recheck function.\n" +
+    "‣ /fc    Directional comparison function.\n" +
+    "‣ /fcl   Empty the recycle bin.\n" +
+    "‣ /cancel Terminate the current process(Ctrl+C)；\n" + 
     "\n" +
-    "<em>shellbot通用命令</em>\n" +
+    "<em>shellbotGeneral order</em>\n" +
     "\n" +
-    "‣ /status 查看此聊天的当前状态和设置;\n" + 
-    "‣ /cd     改变当前目录;\n" +
-    "‣ /run &lt;linux命令&gt; 运行VPS的linux命令;\n" + 
-    "‣ /kill   发送程序结束SIGTERM信号，当然也可以指定程序结束.; \n" +
-    "‣ /end    相当于VPS的Linux的(Ctrl+D).\n" +
+    "‣ /status View the current status and settings of this chat;\n" + 
+    "‣ /cd     Change current directory;\n" +
+    "‣ /run &lt;linux Command&gt; Linux command to run VPS;\n" + 
+    "‣ /kill   Send the program end SIGTERM signal, of course, you can also specify the end of the program.; \n" +
+    "‣ /end    Linux equivalent to VPS(Ctrl+D).\n" +
     "\n" +
-    "<em>注意事项</em>\n" +
-    "‣注：命令交互输入，如回复Y选择进一步操作，需要在TG以回复信息方式进行;\n" +
-    "     或者/enter &lt;交互内容&gt"
+    "<em>Precautions</em>\n" +
+    "Note: Command interactive input, such as reply Y to select further operation, need to reply message in TG;\n" +
+    "     or/enter &lt;Interactive content&gt"
   );
 });
 
-// 一键快速转存bot command = "/fq"
+// One-click quick transfer bot command = "/fq"
 bot.command("fq", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Coomands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// 一键快速转存"/fq" command that should be used
+// One-click quick transfer"/fq" command that should be used
   var args = "/root/fclone_shell_bot/script/fqtask.sh";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
@@ -518,18 +518,18 @@ bot.command("fq", function (msg, reply, next) {
   });
 });
 
-// 点对点转存bot command = "fp"
+// Point-to-point transfer bot command = "fp"
 bot.command("fp", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Coomands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// 点对点转存"/fp" command that should be used
+// Point-to-point transfer"/fp" command that should be used
   var args = "/root/fclone_shell_bot/script/fptask.sh";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
@@ -537,18 +537,18 @@ bot.command("fp", function (msg, reply, next) {
   });
 });
 
-// 全盘备份bot command = "/fb"
+// Full disk backup bot command = "/fb"
 bot.command("fb", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Coomands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// 全盘备份"/fb" command that should be used
+// Full disk backup"/fb" command that should be used
   var args = "/root/fclone_shell_bot/script/fbtask.sh";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
@@ -556,18 +556,18 @@ bot.command("fb", function (msg, reply, next) {
   });
 });
 
-// 定向size查询bot command = "/fs"
+// Check Size bot command = "/fs"
 bot.command("fs", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Coomands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// 定向size查询"/fs" command that should be used
+// Check Size"/fs" command that should be used
   var args = "/root/fclone_shell_bot/script/fsize.sh";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
@@ -575,18 +575,18 @@ bot.command("fs", function (msg, reply, next) {
   });
 });
 
-// 定向查重bot command = "/fd"
+// Dedupe bot command = "/fd"
 bot.command("fd", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Commands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// 定向查重"/fd" command that should be used
+// Dedupe"/fd" command that should be used
   var args = "/root/fclone_shell_bot/script/fdedup.sh";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
@@ -594,18 +594,18 @@ bot.command("fd", function (msg, reply, next) {
   });
 });
 
-// 定向比对bot command = "/fc"
+// Directory Comparison bot command = "/fc"
 bot.command("fc", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Commands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// 定向比对"/fc" command that should be used
+// Directory Comparison"/fc" command that should be used
   var args = "/root/fclone_shell_bot/script/fcheck.sh";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
@@ -613,18 +613,18 @@ bot.command("fc", function (msg, reply, next) {
   });
 });
 
-// 清空回收站bot command = "/fcl"
+// Empty the recycle bin bot command = "/fcl"
 bot.command("fcl", function (msg, reply, next) {
 
   if (msg.context.command) {
     var command = msg.context.command;
-    return reply.text("一条命令正在运行中.");
+    return reply.text("一Commands are running.");
   }
 
   if (msg.editor) msg.editor.detach();
   msg.editor = null;
 
-// 清空回收站"/fcl" command that should be used
+// Empty the recycle bin"/fcl" command that should be used
   var args = "/root/fclone_shell_bot/script/fcleanup.sh";
   msg.context.command = new Command(reply, msg.context, args);
   msg.context.command.on("exit", function() {
