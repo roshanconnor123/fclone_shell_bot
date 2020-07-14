@@ -23,6 +23,6 @@ if [ -z "$link2" ] ; then
 else
 link2=${link2#*id=};link2=${link2#*folders/};link2=${link2#*d/};link2=${link2%?usp*}
 fi
-echo -e "▣▣▣▣▣▣正在执行比对▣▣▣▣▣▣"
+echo -e "▣▣▣▣▣▣Performing comparison▣▣▣▣▣▣"
 fclone check "$fclone_name":{$link1} "$fclone_name":{$link2} --fast-list --size-only --checkers=64
 echo "|▉▉▉▉▉▉▉▉▉▉▉▉|100%  Comparison finished"
