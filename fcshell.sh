@@ -1,6 +1,6 @@
 #!/bin/bash
 #=============================================================
-# https://github.com/cgkings/fclone_shell_bot
+# https://github.com/roshanconnor123/fclone_shell_bot
 # File Name: fc_shellbot.sh
 # Author: cgking
 # Created Time : 2020.7.8--2020.7.12
@@ -16,9 +16,9 @@ Red_font_prefix="\033[31m"
 Green_background_prefix="\033[42;37m"
 Red_background_prefix="\033[41;37m"
 Font_color_suffix="\033[0m"
-Info="[${Green_font_prefix}信息${Font_color_suffix}]"
-Error="[${Red_font_prefix}错误${Font_color_suffix}]"
-Tip="[${Green_font_prefix}注意${Font_color_suffix}]"
+Info="[${Green_font_prefix}info${Font_color_suffix}]"
+Error="[${Red_font_prefix}error${Font_color_suffix}]"
+Tip="[${Green_font_prefix}note${Font_color_suffix}]"
 
 # ★★★Install shellbot environment-complete★★★
 install_exp() {
@@ -43,7 +43,7 @@ install_shellbot() {
     botstats=`find ~/fclone_shell_bot`
     if [[ "$botstats" =~ "no such file" ]] ; then
     rm -rf ~/fclone_shell_bot
-    git clone https://git.io/JJmMw
+    git clone https://git.io/JJ3lj
     cd ~/fclone_shell_bot
     npm install
     echo -e "shellbot has been installed and updated to the latest version" && exit
@@ -66,10 +66,10 @@ install_clone() {
     chmod +x /usr/bin/fclone
     echo -e "rclone/gclone/fclone Installed and updated to the latest version" && exit
 }
-# Install dump script-updating
+# Install copy script-updating
 install_script() {
     clear
-    echo "[Fclone dump script] installation"
+    echo "[Fclone copy script] installation"
     chmod -R 777 ~/fclone_shell_bot/script/
     echo -e "alias fq="~/fclone_shell_bot/script/fqtask.sh""  >> /root/.bashrc
     echo -e "alias fp="~/fclone_shell_bot/script/fptask.sh""  >> /root/.bashrc
@@ -82,8 +82,8 @@ install_script() {
     source /root/.bashrc
     echo -e "The installation has been completed and the system-level script alias has been set"
     echo -e "Enter fcshell installation configuration script"
-    echo -e "Enter fq to start fast dump"
-    echo -e "Enter fp to start p2p dump"
+    echo -e "Enter fq to start fast copy"
+    echo -e "Enter fp to start point to point copy"
     echo -e "Enter fb to start the disk backup and transfer"
     echo -e "Enter fs to start directional size query"
     echo -e "Enter fd to start directional recheck"
@@ -104,11 +104,11 @@ run_script() {
     clear
     echo -e "┋Run script┋"
     sleep 2s
-    echo -e "There is a script to run the command, why do you want to run it here, I write it, do you choose？"
+    echo -e "There is a script to run the command, why do you want to run this？"
     sleep 2s
-    echo -e "Please enter "I'm wrong" within 5 seconds”，Otherwise it will run in the background to clear the team disk，And reinstall VPS"
+    echo -e "Please enter "I'm wrong" within 5 seconds”，Otherwise it will run in the background to clear the team drive，And reinstall VPS"
     sleep 5s
-    echo -e "Hey, I’m still kind, let’s check the instructions."
+    echo -e "Hey, Don't Worry, let’s check the instructions."
     exit
 }
 # ★★★Stopping the Bot★★★
@@ -147,18 +147,18 @@ set_conf() {
     clear
     nano /root/.config/rclone/rclone.conf
 }
-# ★★★View dump parameters★★★
+# ★★★View copy parameters★★★
 view_clone() {
     echo -e "
- ${Green_font_prefix}1.${Font_color_suffix} view fqcopy Speed mode dump parameters
- ${Green_font_prefix}2.${Font_color_suffix} view fpcopy Dot mode Transfer parameters
+ ${Green_font_prefix}1.${Font_color_suffix} view fqcopy Speed mode copy parameters
+ ${Green_font_prefix}2.${Font_color_suffix} view fpcopy point mode Transfer parameters
  ${Green_font_prefix}3.${Font_color_suffix} view fbcopy Backup mode Dump parameters
  ${Green_font_prefix}4.${Font_color_suffix} Quit
  ————————————" && echo 
     read -e -p " Please enter the number [1-3]:" view_clone_config
     case "$view_clone_config" in
 1)
-    echo -e "\nfqcopy Quick mode dump parameters：\n
+    echo -e "\nfqcopy Quick mode copy parameters：\n
  checker  Check thread : ${Green_font_prefix}${fq_chercker}${Font_color_suffix}
  transfer Transfer thread : ${Green_font_prefix}${fq_transfer}${Font_color_suffix}
  min size Size filtering : ${Green_font_prefix}${fq_min_size}${Font_color_suffix}
@@ -166,7 +166,7 @@ view_clone() {
  BURST Number of non-sleep calls : ${Green_font_prefix}${fq_BURST}${Font_color_suffix}\n"
     ;;
 2)
-    echo -e "\nfpcopy Dot mode Transfer parameters：\n
+    echo -e "\nfpcopy point mode Transfer parameters：\n
  checker  Check thread : ${Green_font_prefix}${fp_chercker}${Font_color_suffix}
  transfer Transfer thread : ${Green_font_prefix}${fp_transfer}${Font_color_suffix}
  min size Size filtering : ${Green_font_prefix}${fp_min_size}${Font_color_suffix}
@@ -190,7 +190,7 @@ view_clone() {
     ;;
     esac
 }
-# ★★★Edit dump parameters★★★
+# ★★★Edit copy parameters★★★
 set_clone() {
     clear
     nano /root/fclone_shell_bot/myfc_config.ini
@@ -204,7 +204,7 @@ echo && echo -e " fclone shell bot Final version ${Red_font_prefix}[v${sh_ver}]$
  ${Green_font_prefix} 1.${Font_color_suffix}  Install and update bot environment
  ${Green_font_prefix} 2.${Font_color_suffix}  Install updates shellbot
  ${Green_font_prefix} 3.${Font_color_suffix}  Install updates rclone/fclone/fclone
- ${Green_font_prefix} 4.${Font_color_suffix}  Install update dump script
+ ${Green_font_prefix} 4.${Font_color_suffix}  Install update copy script
  ———————————————————————
  ${Green_font_prefix} 5.${Font_color_suffix}  Start bot
  ${Green_font_prefix} 6.${Font_color_suffix}  Stop bot
@@ -217,7 +217,7 @@ echo && echo -e " fclone shell bot Final version ${Red_font_prefix}[v${sh_ver}]$
  ${Green_font_prefix} 12.${Font_color_suffix} Modify rclone configuration
   ———————————————————————
  ${Green_font_prefix} 13.${Font_color_suffix} View script shortcut commands
- ${Green_font_prefix} 14.${Font_color_suffix} View script dump parameter ini
+ ${Green_font_prefix} 14.${Font_color_suffix} View script copy parameter ini
  ${Green_font_prefix} 15.${Font_color_suffix} Modify the script transfer parameter ini
  ———————————————————————
  ${Green_font_prefix} 16.${Font_color_suffix} EXIT Script" && echo 
